@@ -5,7 +5,7 @@ Tic Tac Toe is a classic two-player game where players take turns marking spaces
 This implementation of Tic Tac Toe is designed for both beginner and intermediate developers to practice concepts such as:
 
 
-#Features - 
+ Features - 
 
 Basic game mechanics
 User input and interface
@@ -13,8 +13,7 @@ Conditional logic for determining the winner
 Handling ties
 Game replayability
 
-
-#How to Play-
+Description - 
 
 1. The game is played on a 3x3 grid.
 2. Player 1 is assigned the symbol 'X', and Player 2 is assigned the symbol 'O'.
