@@ -17,8 +17,11 @@ Game replayability
 #How to Play-
 
 1. The game is played on a 3x3 grid.
-2. Player 1 is assigned the symbol 'X', and Player 2 (or the computer) is assigned the symbol 'O'.
+2. Player 1 is assigned the symbol 'X', and Player 2 is assigned the symbol 'O'.
 3. Players take turns placing their symbol in an empty cell of the grid.
 4. The first player to get 3 of their symbols in a row—either horizontally, vertically, or diagonally—wins.
 5. If all 9 spaces are filled and no player has 3 in a row, the game ends in a tie.
 6. A replay option is available after each round.
+7. In Case of Winning , the Firecracker sound will be played for 2 second.
+8. The message appears for both Winning and Tying the Game and will automatically disappear after a few seconds.
+9. A click beep sound plays when each button is clicked.
