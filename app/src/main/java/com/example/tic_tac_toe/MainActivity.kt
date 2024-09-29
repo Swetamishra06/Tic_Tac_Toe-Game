@@ -2,12 +2,17 @@ package com.example.tic_tac_toe
 
 import android.os.Bundle
 import android.view.View
+import android.os.Handler
 import android.widget.Button
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
+import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
 
 class MainActivity : AppCompatActivity() {
+    lateinit var mediaPlayer1: MediaPlayer
+    lateinit var mediaPlayer2: MediaPlayer
 
     lateinit var btn1: Button
     lateinit var btn2: Button
@@ -18,6 +23,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var btn7: Button
     lateinit var btn8: Button
     lateinit var btn9: Button
+    lateinit var replay: Button
+    lateinit var message :TextView
+
     var flag = 0
     var count = 0
 
@@ -33,9 +41,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+
         setContentView(R.layout.activity_main)
         initialize()
+        message = findViewById<TextView>(R.id.editTextText)
+        //initialize the media player
+        mediaPlayer1= android.media.MediaPlayer.create(this,R.raw.click)
+        mediaPlayer2 = android.media.MediaPlayer.create(this,R.raw.cracker)
     }
 
     private fun initialize() {
@@ -48,12 +60,21 @@ class MainActivity : AppCompatActivity() {
         btn7 = findViewById(R.id.button7)
         btn8 = findViewById(R.id.button8)
         btn9 = findViewById(R.id.button9)
+
+        replay = findViewById(R.id.replay)
+
+        // Replay button action
+        replay.setOnClickListener {
+            message.text =""
+            newchance()
+        }
     }
 
     fun Check(view: View) {
         val btnCurrent = view as Button
 
         if (btnCurrent.text.isEmpty()) {
+              mediaPlayer1.start()//play the sound
             count++
             // Toggle the turns
             if (flag == 0) {
@@ -87,15 +108,26 @@ class MainActivity : AppCompatActivity() {
                     (b3 == b6 && b6 == b9 && b3 != "") -> announceWinner(b3)
                     (b1 == b5 && b5 == b9 && b1 != "") -> announceWinner(b1)
                     (b3 == b5 && b5 == b7 && b3 != "") -> announceWinner(b3)
-                    (count == 9) -> {Toast.makeText(this, "It's a draw! 😁 😁 ", Toast.LENGTH_LONG).show()
-                        newchance()}
+                    if(count == 9) -> {
+                        message.text = "It's a draw! "
+                        Handler().postDelayed({
+                            message.text = "" },2000)
+                        newchance()
+
+                    }
                 }
             }
         }
     }
 
     private fun announceWinner(winner: String) {
-        Toast.makeText(this, "Winner is: $winner " + "🎉 🎊 ", Toast.LENGTH_LONG).show()
+
+        mediaPlayer2.start()
+        message.text = "Winner is: $winner 🎉 🎊 "
+        Handler().postDelayed({
+            message.text = ""
+        },2000)
+
         newchance()
     }
 
@@ -109,7 +141,6 @@ class MainActivity : AppCompatActivity() {
         btn7.text = ""
         btn8.text = ""
         btn9.text = ""
-
         // Enable all buttons again for the new game
         btn1.isEnabled = true
         btn2.isEnabled = true
